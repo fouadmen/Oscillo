@@ -27,6 +27,7 @@ class Screen(Canvas):
 
         self.signal_X = None
         self.color_X = "red"
+        self.signal = []
 
         self.configure(bg=background, bd=2, relief="sunken")
         self.bind("<Configure>", self.resize)
@@ -42,6 +43,8 @@ class Screen(Canvas):
             self.width = event.width
             self.height = event.height
             self.draw_grid()
+            self.plot_signal('X', self.signal)
+
 
     def draw_grid(self, nX=10, nY=10):
         """
@@ -72,12 +75,14 @@ class Screen(Canvas):
         name : nom du signal ("X","Y","X-Y")
         signal : liste des couples (temps,elongation) ou (elongation X, elongation Y)
         """
+        self.signal = signal
         if signal and len(signal) > 1:
             if name == "X":
                 if self.signal_X > -1:
                     self.delete(self.signal_X)
                 plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in signal]
                 self.signal_X = self.create_line(plot, fill=self.color_X, smooth=1, width=3)
+        return plot
 
 if __name__ == "__main__":
     root = Tk()

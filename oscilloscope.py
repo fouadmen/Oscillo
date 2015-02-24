@@ -72,6 +72,7 @@ class Oscilloscope(Frame):
             signal = signal[0:(len(signal)/msdiv) + 1]
             signal = map(lambda (x, y): (x*msdiv, y), signal)
             self.view.plot_signal(name, signal)
+            print('ici update view')
         return signal
 
 if __name__ == "__main__":
