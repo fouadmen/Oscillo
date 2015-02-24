@@ -20,6 +20,8 @@ class Screen(Canvas):
         Canvas.__init__(self)
         self.parent = parent
 
+        self.lines = []
+
         self.width = width
         self.height = height
 
@@ -35,6 +37,8 @@ class Screen(Canvas):
         """
         print("Screen.resize()")
         if event:
+            for line in self.lines:
+                self.delete(line)
             self.width = event.width
             self.height = event.height
             self.draw_grid()
@@ -48,17 +52,17 @@ class Screen(Canvas):
         """
         print("Screen.draw_grid('%d','%d')" % (nX, nY))
 
+        self.lines = []
+
         "Repere d'affichage"
-        self.create_line(10, self.height/2, self.width, self.height/2, arrow="last")
-        self.create_line(10, self.height-5, 10, 5, arrow="last")
+        self.lines.append( self.create_line(10, self.height/2, self.width, self.height/2, arrow="last") )
+        self.lines.append( self.create_line(10, self.height-5, 10, 5, arrow="last") )
 
         pasWidth = self.width / nX
         pasHeight = self.height /nY
         for t in range(1, nX+1):
-            print("on a ici ca : " , t*pasHeight)
-            self.create_line(t*pasWidth, self.height, t*pasWidth, -self.height)
-            self.create_line(0, t*pasHeight, self.width, t*pasHeight)
-
+            self.lines.append( self.create_line(t*pasWidth, self.height, t*pasWidth, -self.height) )
+            self.lines.append( self.create_line(0, t*pasHeight, self.width, t*pasHeight) )
         return
 
     def plot_signal(self, name, signal=None):
