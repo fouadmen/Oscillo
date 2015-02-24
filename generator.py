@@ -33,7 +33,7 @@ class Generator(Frame):
                 tickinterval=20, command=self.update_signal)
 
         self.scale_P = Scale(self, length=100, orient="horizontal",
-                label="Fréquence", showvalue=1, from_=0, to=10,
+                label="Phase", showvalue=1, from_=0, to=10,
                 tickinterval=1, command=self.update_signal)
 
         self.scale_F.pack(expand="yes", fill="both")

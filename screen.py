@@ -87,5 +87,5 @@ class Screen(Canvas):
 if __name__ == "__main__":
     root = Tk()
     screen = Screen(root)
-    screen
+    screen.pack()
     root.mainloop()

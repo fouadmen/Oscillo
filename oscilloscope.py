@@ -6,6 +6,7 @@ from Tkinter import Tk, Frame
 from screen import Screen
 from timebase import TimeBase
 from generator import Generator
+from menuBar import MenuBar
 
 
 class Oscilloscope(Frame):
@@ -27,6 +28,11 @@ class Oscilloscope(Frame):
         """
         Frame.__init__(self)
         self.master.title("Oscilloscope")
+
+        # Barre de menu
+        menuBar = MenuBar(parent=self)
+        menuBar.pack();
+
         # Hauteur & largeur
         self.width = width
         self.height = height
