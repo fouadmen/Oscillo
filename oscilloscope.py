@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Canvas
+from Tkinter import Tk, Frame
 
 from screen import Screen
 from timebase import TimeBase
 from generator import Generator
 
 
-class Oscilloscope(Canvas):
+class Oscilloscope(Frame):
     """ 
     Modele d'Oscilloscope 
 
@@ -25,7 +25,7 @@ class Oscilloscope(Canvas):
         parent : une application
         width,height : dimension de l'oscilloscpe
         """
-        Canvas.__init__(self)
+        Frame.__init__(self)
         self.master.title("Oscilloscope")
         # Hauteur & largeur
         self.width = width
@@ -74,18 +74,7 @@ class Oscilloscope(Canvas):
             self.view.plot_signal(name, signal)
         return signal
 
-    def repere(self, steps):
-        "Repere d'affichage"
-        self.create_line(10, self.height/2, self.width, self.height/2, arrow="last")
-        self.create_line(10, self.height-5, 10, 5, arrow="last")
-        pas = (self.width-10)/steps*1.
-        for t in range(1, steps+2):
-            stx = t*pas
-            self.create_line(stx, self.height/2-4, stx, self.height/2+4)
-        return
-
 if __name__ == "__main__":
     root = Tk()
     oscillo = Oscilloscope(root)
-    oscillo.repere(8)
     root.mainloop()
