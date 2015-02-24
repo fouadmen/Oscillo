@@ -31,7 +31,7 @@ class Oscilloscope(Frame):
 
         # Barre de menu
         menuBar = MenuBar(parent=self)
-        menuBar.pack();
+        menuBar.pack(side="top");
 
         # Hauteur & largeur
         self.width = width
