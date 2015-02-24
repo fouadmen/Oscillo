@@ -39,9 +39,9 @@ class Oscilloscope(Frame):
         self.control_time = TimeBase(parent=self)
         self.control_X = Generator(parent=self)
         # Affichage Vues, Controleurs
-        self.view.pack()
-        self.control_time.pack()
-        self.control_X.pack()
+        self.view.pack(fill="both", expand=1)
+        self.control_time.pack(fill="both", expand=1)
+        self.control_X.pack(fill="both", expand=1)
         self.configure(width=width, height=height)
 
     def get_time(self):

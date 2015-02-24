@@ -26,7 +26,19 @@ class Generator(Frame):
         self.scale_A = Scale(self, length=100, orient="horizontal",
                 label=name + " Amplitude", showvalue=1, from_=0, to=10,
                 tickinterval=1, command=self.update_signal)
+        
+
+        self.scale_F = Scale(self, length=100, orient="horizontal",
+                label="Fréquence", showvalue=1, from_=0, to=200,
+                tickinterval=20, command=self.update_signal)
+
+        self.scale_P = Scale(self, length=100, orient="horizontal",
+                label="Fréquence", showvalue=1, from_=0, to=10,
+                tickinterval=1, command=self.update_signal)
+
+        self.scale_F.pack(expand="yes", fill="both")
         self.scale_A.pack(expand="yes", fill="both")
+        self.scale_P.pack(expand="yes", fill="both")
 
     def update_signal(self, event):
         """
@@ -34,9 +46,13 @@ class Generator(Frame):
         """
         print("Vibration.update_signal()")
         print("Amplitude :", self.scale_A.get())
+        print("Frequence :", self.scale_F.get())
+        print("Phase :", self.scale_P.get())
         scaling=0.05
         amp = scaling*self.scale_A.get()
-        signal = self.generate_signal(a=amp)
+        freq = self.scale_F.get()
+        phase = self.scale_P.get()
+        signal = self.generate_signal(a=amp, f=freq, p=phase)
         if not isinstance(self.parent, Tk):
             self.parent.update_view(self.name, signal)
         return signal
