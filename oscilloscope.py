@@ -7,6 +7,7 @@ from screen import Screen
 from timebase import TimeBase
 from generator import Generator
 from menuBar import MenuBar
+from signalSelected import SignalSelected
 
 
 class Oscilloscope(Frame):
@@ -45,7 +46,10 @@ class Oscilloscope(Frame):
         self.control_time = TimeBase(parent=self)
         self.control_X = Generator(parent=self)
         self.control_Y = Generator(parent=self, name="Y")
+        self.signalSelected = SignalSelected(parent=self)
+
         # Affichage Vues, Controleurs
+        self.signalSelected.pack(side="left", fill="y")
         self.view.pack(fill="both", expand=1)
         self.control_time.pack(fill="both", expand=1)
         self.control_X.pack(side="left", fill="both", expand=1)

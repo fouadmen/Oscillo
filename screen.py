@@ -25,10 +25,25 @@ class Screen(Canvas):
         self.width = width
         self.height = height
 
+        # Signal X
         self.signal_X = None
         self.color_X = "red"
+        self.signal_X_allowed = 1;
+
+        self.signal_X_liste = []
+        self.signal_Y_liste = []
+        
+        # Signal Y
         self.signal_Y = None
         self.color_Y = "yellow"
+        self.signal_Y_allowed = 1;
+
+        # Signal X-Y
+        self.signal_XY = None
+        self.signal_XY_liste = []
+        self.color_XY = "green"
+        self.signal_XY_allowed = 0;
+
         self.signal = []
 
         self.configure(bg=background, bd=2, relief="sunken")
@@ -45,8 +60,8 @@ class Screen(Canvas):
             self.width = event.width
             self.height = event.height
             self.draw_grid()
-            self.plot_signal('X', self.signal)
-            self.plot_signal('Y', self.signal)
+            self.plot_signal('X', self.signal_X_liste)
+            self.plot_signal('Y', self.signal_Y_liste)
 
 
     def draw_grid(self, nX=10, nY=10):
@@ -65,7 +80,7 @@ class Screen(Canvas):
         self.lines.append( self.create_line(10, self.height-5, 10, 5, arrow="last") )
 
         pasWidth = self.width / nX
-        pasHeight = self.height /nY
+        pasHeight = self.height / nY
         for t in range(1, nX+1):
             self.lines.append( self.create_line(t*pasWidth, self.height, t*pasWidth, -self.height) )
             self.lines.append( self.create_line(0, t*pasHeight, self.width, t*pasHeight) )
@@ -78,18 +93,29 @@ class Screen(Canvas):
         name : nom du signal ("X","Y","X-Y")
         signal : liste des couples (temps,elongation) ou (elongation X, elongation Y)
         """
-        self.signal = signal
         if signal and len(signal) > 1:
-            if name == "X":
+            if name == "X" and self.signal_X_allowed:
                 if self.signal_X > -1:
                     self.delete(self.signal_X)
-                plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in signal]
+                self.signal_X_liste = signal
+                plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_X_liste]
                 self.signal_X = self.create_line(plot, fill=self.color_X, smooth=1, width=3)
-            if name == "Y":
+            if name == "Y" and self.signal_Y_allowed:
                 if self.signal_Y > -1:
                     self.delete(self.signal_Y)
-                plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in signal]
+                self.signal_Y_liste = signal
+                plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_Y_liste]
                 self.signal_Y = self.create_line(plot, fill=self.color_Y, smooth=1, width=3)
+        
+        if name == "X-Y" and self.signal_XY_allowed:
+            print len(self.signal_X_liste)
+            if self.signal_XY > -1:
+                self.delete(self.signal_XY)
+            print self.signal_X_liste
+            for i in range(0, len(self.signal_X_liste)):
+                self.signal_XY_liste.append((self.signal_X_liste[i][1], self.signal_Y_liste[i][1]))
+            plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_XY_liste]
+            self.signal_XY = self.create_line(plot, fill=self.color_XY, smooth=1, width=3)
         return plot
 
 if __name__ == "__main__":

@@ -29,8 +29,8 @@ class Generator(Frame):
         
 
         self.scale_F = Scale(self, length=100, orient="horizontal",
-                label=name + " Fréquence", showvalue=1, from_=0, to=200,
-                tickinterval=20, command=self.update_signal)
+                label=name + " Fréquence", showvalue=1, from_=0, to=50,
+                tickinterval=10, command=self.update_signal)
 
         self.scale_P = Scale(self, length=100, orient="horizontal",
                 label=name +" Phase", showvalue=1, from_=0, to=10,
