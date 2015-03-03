@@ -45,33 +45,39 @@ class MenuBar(Frame):
 		with open('./Sauvegardes/Default', 'rb') as fichier:
 			mon_depickler = pickle.Unpickler(fichier)
 			parameters = mon_depickler.load()
-			self.parent.control_X.scale_A.set(parameters["amplitude"])
-			self.parent.control_X.scale_F.set(parameters["frequence"])
-			self.parent.control_X.scale_P.set(parameters["phase"])
-			self.parent.control_time.scale_time.set(parameters["time"])
-			self.parent.control_X.scale_P.update_signal()
+			self.setParameters(parameters)
 
 	def load(self):
 		fichier = askopenfile(mode='rb')
 		mon_depickler = pickle.Unpickler(fichier)
 		parameters = mon_depickler.load()
-		self.parent.control_X.scale_A.set(parameters["amplitude"])
-		self.parent.control_X.scale_F.set(parameters["frequence"])
-		self.parent.control_X.scale_P.set(parameters["phase"])
-		self.parent.control_time.scale_time.set(parameters["time"])
-		self.parent.control_X.scale_P.update_signal()
+		self.setParameters(parameters)
 
 	def save(self):
-		
 		fichier = asksaveasfile(mode='wb')
 		save_pickler = pickle.Pickler(fichier)
 		save_pickler.dump(self.getParameters())
 
+	def setParameters(self, parameters):
+		self.parent.control_X.scale_A.set(parameters["amplitudeX"])
+		self.parent.control_X.scale_F.set(parameters["frequenceX"])
+		self.parent.control_X.scale_P.set(parameters["phaseX"])
+		self.parent.control_Y.scale_A.set(parameters["amplitudeY"])
+		self.parent.control_Y.scale_F.set(parameters["frequenceY"])
+		self.parent.control_Y.scale_P.set(parameters["phaseY"])
+		self.parent.control_time.scale_time.set(parameters["time"])
+		self.parent.control_X.scale_P.update_signal()
+		self.parent.control_Y.scale_P.update_signal()
+
+
 	def getParameters(self):
 		parameters = {
-			"amplitude" : self.parent.control_X.scale_A.get(),
-			"frequence" : self.parent.control_X.scale_F.get(),
-			"phase" : self.parent.control_X.scale_P.get(),
+			"amplitudeX" : self.parent.control_X.scale_A.get(),
+			"frequenceX" : self.parent.control_X.scale_F.get(),
+			"phaseX" : self.parent.control_X.scale_P.get(),
+			"amplitudeY" : self.parent.control_Y.scale_A.get(),
+			"frequenceY" : self.parent.control_Y.scale_F.get(),
+			"phaseY" : self.parent.control_Y.scale_P.get(),
 			"time" : self.parent.control_time.scale_time.get()
 		}
 		return parameters

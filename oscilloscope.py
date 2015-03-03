@@ -44,10 +44,12 @@ class Oscilloscope(Frame):
         # Controleurs
         self.control_time = TimeBase(parent=self)
         self.control_X = Generator(parent=self)
+        self.control_Y = Generator(parent=self, name="Y")
         # Affichage Vues, Controleurs
         self.view.pack(fill="both", expand=1)
         self.control_time.pack(fill="both", expand=1)
-        self.control_X.pack(fill="both", expand=1)
+        self.control_X.pack(side="left", fill="both", expand=1)
+        self.control_Y.pack(side="right", fill="both", expand=1)
         self.configure(width=width, height=height)
 
     def get_time(self):
@@ -65,6 +67,7 @@ class Oscilloscope(Frame):
         if self.time != time:
             self.time = time
             self.control_X.update_signal(None)
+            self.control_Y.update_signal(None)
 
     def update_view(self, name="X", signal=None):
         """ demande d'affichage de signal

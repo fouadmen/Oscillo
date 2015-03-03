@@ -27,6 +27,8 @@ class Screen(Canvas):
 
         self.signal_X = None
         self.color_X = "red"
+        self.signal_Y = None
+        self.color_Y = "yellow"
         self.signal = []
 
         self.configure(bg=background, bd=2, relief="sunken")
@@ -44,6 +46,7 @@ class Screen(Canvas):
             self.height = event.height
             self.draw_grid()
             self.plot_signal('X', self.signal)
+            self.plot_signal('Y', self.signal)
 
 
     def draw_grid(self, nX=10, nY=10):
@@ -82,6 +85,11 @@ class Screen(Canvas):
                     self.delete(self.signal_X)
                 plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in signal]
                 self.signal_X = self.create_line(plot, fill=self.color_X, smooth=1, width=3)
+            if name == "Y":
+                if self.signal_Y > -1:
+                    self.delete(self.signal_Y)
+                plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in signal]
+                self.signal_Y = self.create_line(plot, fill=self.color_Y, smooth=1, width=3)
         return plot
 
 if __name__ == "__main__":
