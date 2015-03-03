@@ -1,4 +1,5 @@
-from Tkinter import Tk, Frame, Menubutton, Menu
+# -*- coding: utf-8 -*-
+from Tkinter import Tk, Frame, Menubutton, Menu, Toplevel, Button, Label
 
 import pickle
 import tkMessageBox
@@ -25,7 +26,7 @@ class MenuBar(Frame):
 
 
 		menuPlus = Menu(mbuttonPlus)
-		menuPlus.add_command(label="Infos")
+		menuPlus.add_command(label="Infos", command=self.showInfos)
 
 		menuQuit = Menu(mbuttonQuit)
 		menuQuit.add_command(label="Quitter", command=parent.quit)
@@ -81,6 +82,13 @@ class MenuBar(Frame):
 	        self.parent.quit()
 	    else:
 	        print "Then we don't quit !"
+
+	def showInfos(self):
+		top = Toplevel(bg="green")
+		top.title("Infos")
+		Label(top, text="Email maaath29").grid(row=1)
+		Label(top, text="Développeur : ALLAIN Mathieu").grid(row=0)
+		Button(top, text="Fermer", command=top.destroy).grid(row=2)
 
 if __name__ == "__main__":
     root = Tk()
