@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from Tkinter import Tk, Frame, Scale
-from math import cos, sin, pi
+from math import sin, pi
 
 
 class Generator(Frame):
@@ -29,11 +29,11 @@ class Generator(Frame):
         
 
         self.scale_F = Scale(self, length=100, orient="horizontal",
-                label=name + " Fréquence", showvalue=1, from_=0, to=50,
-                tickinterval=10, command=self.update_signal)
+                label=name + " Fréquence", showvalue=1, from_=0, to=10,
+                tickinterval=1, command=self.update_signal)
 
         self.scale_P = Scale(self, length=100, orient="horizontal",
-                label=name +" Phase", showvalue=1, from_=0, to=10,
+                label=name +" Phase", showvalue=1, from_=0, to=5,
                 tickinterval=1, command=self.update_signal)
 
         self.scale_F.pack(expand="yes", fill="both")
@@ -44,10 +44,6 @@ class Generator(Frame):
         """
         Mise a jour de signal si modifications (amplitude, frequence, phase)
         """
-        print("Vibration.update_signal()")
-        print("Amplitude :", self.scale_A.get())
-        print("Frequence :", self.scale_F.get())
-        print("Phase :", self.scale_P.get())
         scaling=0.05
         amp = scaling*self.scale_A.get()
         freq = self.scale_F.get()

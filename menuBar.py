@@ -66,8 +66,6 @@ class MenuBar(Frame):
 		self.parent.control_Y.scale_F.set(parameters["frequenceY"])
 		self.parent.control_Y.scale_P.set(parameters["phaseY"])
 		self.parent.control_time.scale_time.set(parameters["time"])
-		self.parent.control_X.scale_P.update_signal()
-		self.parent.control_Y.scale_P.update_signal()
 
 
 	def getParameters(self):

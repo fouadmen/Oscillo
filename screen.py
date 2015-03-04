@@ -53,7 +53,6 @@ class Screen(Canvas):
         """
         En cas de reconfiguration de fenetre
         """
-        print("Screen.resize()")
         if event:
             for line in self.lines:
                 self.delete(line)
@@ -62,6 +61,7 @@ class Screen(Canvas):
             self.draw_grid()
             self.plot_signal('X', self.signal_X_liste)
             self.plot_signal('Y', self.signal_Y_liste)
+            self.plot_signal('X-Y', self.signal_Y_liste)
 
 
     def draw_grid(self, nX=10, nY=10):
@@ -71,8 +71,6 @@ class Screen(Canvas):
         nX : pas horizontal
         nY : pas vertical
         """
-        print("Screen.draw_grid('%d','%d')" % (nX, nY))
-
         self.lines = []
 
         "Repere d'affichage"
@@ -93,6 +91,7 @@ class Screen(Canvas):
         name : nom du signal ("X","Y","X-Y")
         signal : liste des couples (temps,elongation) ou (elongation X, elongation Y)
         """
+        plot = []
         if signal and len(signal) > 1:
             if name == "X" and self.signal_X_allowed:
                 if self.signal_X > -1:
@@ -100,21 +99,22 @@ class Screen(Canvas):
                 self.signal_X_liste = signal
                 plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_X_liste]
                 self.signal_X = self.create_line(plot, fill=self.color_X, smooth=1, width=3)
+                self.plot_signal('X-Y', self.signal_XY_liste)
             if name == "Y" and self.signal_Y_allowed:
                 if self.signal_Y > -1:
                     self.delete(self.signal_Y)
                 self.signal_Y_liste = signal
                 plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_Y_liste]
                 self.signal_Y = self.create_line(plot, fill=self.color_Y, smooth=1, width=3)
-        
+                self.plot_signal('X-Y', self.signal_XY_liste)
         if name == "X-Y" and self.signal_XY_allowed:
-            print len(self.signal_X_liste)
             if self.signal_XY > -1:
+                print 'on delete X-Y'
                 self.delete(self.signal_XY)
-            print self.signal_X_liste
+                self.signal_XY_liste = []
             for i in range(0, len(self.signal_X_liste)):
                 self.signal_XY_liste.append((self.signal_X_liste[i][1], self.signal_Y_liste[i][1]))
-            plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_XY_liste]
+            plot = [(x*self.width + self.width/2, y*self.height + self.height/2) for (x, y) in self.signal_XY_liste]
             self.signal_XY = self.create_line(plot, fill=self.color_XY, smooth=1, width=3)
         return plot
 

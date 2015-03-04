@@ -52,12 +52,12 @@ class SignalSelected(Frame):
             self.parent.view.delete( self.parent.view.signal_Y)
 
     def updateXY(self):
-        if self.Y.get():
+        if self.XY.get():
             self.parent.view.signal_XY_allowed = 1
             self.parent.view.plot_signal('X-Y')
         else:
             self.parent.view.signal_XY_allowed = 0
-            self.parent.view.delete( self.parent.view.signal_XY)
+            self.parent.view.delete(self.parent.view.signal_XY)
 
 if __name__ == "__main__": 
     root = Tk()

@@ -1,13 +1,13 @@
 (dp0
 S'frequenceX'
 p1
-I7
+I3
 sS'frequenceY'
 p2
-I8
+I3
 sS'phaseY'
 p3
-I0
+I2
 sS'phaseX'
 p4
 I0
@@ -16,7 +16,7 @@ p5
 I4
 sS'amplitudeX'
 p6
-I2
+I1
 sS'time'
 p7
 I1

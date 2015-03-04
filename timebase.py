@@ -30,8 +30,6 @@ class TimeBase(Frame):
 
     def update(self, event):
         """mise a jour de la base de temps"""
-        print("TimeBase.update_time_base()")
-        print("Base de temps : ", self.scale_time.get())
         if not isinstance(self.parent, Tk):
             self.parent.update_time(self.scale_time.get())
 

@@ -79,7 +79,6 @@ class Oscilloscope(Frame):
         name : nom de la courbe (X,Y, X-Y)
         signal : liste des couples (temps,elongation) ou (elongation X, elongation Y)
         """
-        print("Base de Temps :", self.get_time())
         msdiv = self.get_time()
         if signal :
             signal = signal[0:(len(signal)/msdiv) + 1]
