@@ -8,6 +8,7 @@ from timebase import TimeBase
 from generator import Generator
 from menuBar import MenuBar
 from signalSelected import SignalSelected
+from lissajou import Lissajou
 
 
 class Oscilloscope(Frame):
@@ -46,6 +47,7 @@ class Oscilloscope(Frame):
         self.control_time = TimeBase(parent=self)
         self.control_X = Generator(parent=self)
         self.control_Y = Generator(parent=self, name="Y")
+        self.control_L = Lissajou(parent=self)
         self.signalSelected = SignalSelected(parent=self)
 
         # Affichage Vues, Controleurs
@@ -53,6 +55,7 @@ class Oscilloscope(Frame):
         self.view.pack(fill="both", expand=1)
         self.control_time.pack(fill="both", expand=1)
         self.control_X.pack(side="left", fill="both", expand=1)
+        self.control_L.pack(side="left")
         self.control_Y.pack(side="right", fill="both", expand=1)
         self.configure(width=width, height=height)
 

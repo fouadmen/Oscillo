@@ -38,12 +38,6 @@ class Screen(Canvas):
         self.color_Y = "yellow"
         self.signal_Y_allowed = 1;
 
-        # Signal X-Y
-        self.signal_XY = None
-        self.signal_XY_liste = []
-        self.color_XY = "green"
-        self.signal_XY_allowed = 0;
-
         self.signal = []
 
         self.configure(bg=background, bd=2, relief="sunken")
@@ -61,7 +55,7 @@ class Screen(Canvas):
             self.draw_grid()
             self.plot_signal('X', self.signal_X_liste)
             self.plot_signal('Y', self.signal_Y_liste)
-            self.plot_signal('X-Y', self.signal_Y_liste)
+            self.parent.control_L.draw_lissajou(self.signal_Y_liste)
 
 
     def draw_grid(self, nX=10, nY=10):
@@ -99,23 +93,16 @@ class Screen(Canvas):
                 self.signal_X_liste = signal
                 plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_X_liste]
                 self.signal_X = self.create_line(plot, fill=self.color_X, smooth=1, width=3)
-                self.plot_signal('X-Y', self.signal_XY_liste)
+                self.plot_signal('X-Y', self.parent.control_L.signal_XY_liste)
             if name == "Y" and self.signal_Y_allowed:
                 if self.signal_Y > -1:
                     self.delete(self.signal_Y)
                 self.signal_Y_liste = signal
                 plot = [(x*self.width, y*self.height + self.height/2) for (x, y) in self.signal_Y_liste]
                 self.signal_Y = self.create_line(plot, fill=self.color_Y, smooth=1, width=3)
-                self.plot_signal('X-Y', self.signal_XY_liste)
-        if name == "X-Y" and self.signal_XY_allowed:
-            if self.signal_XY > -1:
-                print 'on delete X-Y'
-                self.delete(self.signal_XY)
-                self.signal_XY_liste = []
-            for i in range(0, len(self.signal_X_liste)):
-                self.signal_XY_liste.append((self.signal_X_liste[i][1], self.signal_Y_liste[i][1]))
-            plot = [(x*self.width + self.width/2, y*self.height + self.height/2) for (x, y) in self.signal_XY_liste]
-            self.signal_XY = self.create_line(plot, fill=self.color_XY, smooth=1, width=3)
+                self.plot_signal('X-Y', self.parent.control_L.signal_XY_liste)
+        if name == "X-Y":
+            plot = self.parent.control_L.draw_lissajou(self.signal_X_liste, self.signal_Y_liste);
         return plot
 
 if __name__ == "__main__":

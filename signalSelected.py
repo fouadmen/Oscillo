@@ -53,11 +53,11 @@ class SignalSelected(Frame):
 
     def updateXY(self):
         if self.XY.get():
-            self.parent.view.signal_XY_allowed = 1
+            self.parent.control_L.signal_XY_allowed = 1
             self.parent.view.plot_signal('X-Y')
         else:
-            self.parent.view.signal_XY_allowed = 0
-            self.parent.view.delete(self.parent.view.signal_XY)
+            self.parent.control_L.signal_XY_allowed = 0
+            self.parent.control_L.delete(self.parent.view.signal_XY)
 
 if __name__ == "__main__": 
     root = Tk()
